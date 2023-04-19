@@ -29,6 +29,7 @@ func parseContent(content string) string {
 	text := contentMap["text"].(string)
 	return msgFilter(text)
 }
+
 func processMessage(msg interface{}) (string, error) {
 	msg = strings.TrimSpace(msg.(string))
 	msgB, err := json.Marshal(msg)
@@ -60,7 +61,7 @@ func processUnicode(msg string) string {
 		r, _ := regexp.Compile(`\\u`)
 		s = r.ReplaceAllString(s, "")
 		i, _ := strconv.ParseInt(s, 16, 32)
-		return strconv.Itoa(int(i))
+		return string(rune(i))
 	})
 }
 
